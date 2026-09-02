@@ -1,0 +1,17 @@
+@use "abstracts" as *;
+@use "base" as *;
+
+html,
+body,
+#root {
+  block-size: 100%;
+}
+
+body {
+  background: $color-bg;
+
+  font-family: $font-body;
+  font-size: $fs-body;
+  line-height: $lh-body;
+  color: $color-text-on-light;
+}
