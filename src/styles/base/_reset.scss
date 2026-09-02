@@ -1,0 +1,48 @@
+*,
+*::before,
+*::after {
+  // Remove all default margins and padding
+  margin: 0;
+  padding: 0;
+
+  // Use a more intuitive box-sizing model
+  box-sizing: border-box;
+}
+
+*:focus {
+  // Remove default outline during focus
+  outline: none;
+}
+
+a {
+  // Remove default underline
+  text-decoration: none;
+
+  // Use container's text color instead
+  color: inherit;
+}
+
+button {
+  // Remove default background and border
+  background: none;
+  border: none;
+
+  cursor: pointer;
+}
+
+img {
+  display: block;
+
+  // Prevent it from outgrowing container
+  max-width: 100%;
+
+  // Maintain aspect ratio
+  height: auto;
+}
+
+svg {
+  display: block;
+
+  // Prevent it from outgrowing container
+  max-width: 100%;
+}

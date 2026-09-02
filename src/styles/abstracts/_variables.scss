@@ -1,0 +1,80 @@
+/* stylelint-disable scss/dollar-variable-empty-line-before */
+
+/*********************************** Color ************************************/
+
+$color-wall: #e8dfd1;
+$color-wall-shadow: #d8cbb4;
+$color-walnut: #3b2a1e;
+$color-walnut-dark: #241811;
+$color-brass: #b08d57;
+$color-brass-bright: #d4af7a;
+$color-parchment: #f4ecdd;
+$color-sage: #7c8b6f;
+$color-ember: #a8462f;
+
+// Semantic aliases
+$color-bg: $color-wall;
+$color-bg-shadow: $color-wall-shadow;
+$color-surface: $color-walnut;
+$color-surface-dark: $color-walnut-dark;
+$color-accent: $color-brass;
+$color-accent-hover: $color-brass-bright;
+$color-text-on-light: $color-walnut-dark;
+$color-text-on-dark: $color-parchment;
+$color-ambient: $color-sage;
+$color-focus: $color-ember;
+
+/************************************ Type ************************************/
+
+$font-display: "Fraunces", "Iowan Old Style", serif;
+$font-body:
+  "Inter",
+  -apple-system,
+  blinkmacsystemfont,
+  sans-serif;
+$font-mono: "IBM Plex Mono", "SFMono-Regular", monospace;
+
+$fs-hero: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+$fs-title: clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem);
+$fs-body: 1rem;
+$fs-caption: 0.8125rem;
+$fs-label: 0.6875rem;
+
+$lh-display: 1.1;
+$lh-body: 1.6;
+
+/********************************** Spacing ***********************************/
+
+$space-1: 0.25rem;
+$space-2: 0.5rem;
+$space-3: 0.75rem;
+$space-4: 1rem;
+$space-5: 1.5rem;
+$space-6: 2rem;
+$space-7: 3rem;
+$space-8: 4.5rem;
+$space-9: 7rem;
+
+/*********************************** Motion ***********************************/
+
+$ease-room: cubic-bezier(0.22, 1, 0.36, 1);
+$ease-glint: cubic-bezier(0.4, 0, 0.2, 1);
+
+$dur-fast: 150ms;
+$dur-medium: 400ms;
+$dur-slow: 800ms;
+$dur-room: 1100ms;
+
+/*********************************** Layout ***********************************/
+
+$chrome-inset: $space-5;
+
+$radius-frame: 2px;
+$radius-base: 6px;
+$radius-soft: 10px;
+
+$z-scene: 0;
+$z-ambient: 10;
+$z-frame: 20;
+$z-chrome: 100;
+$z-overlay: 200;
