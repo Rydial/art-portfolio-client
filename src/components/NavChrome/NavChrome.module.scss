@@ -1,0 +1,99 @@
+.chrome {
+  @include fixed-inset;
+
+  z-index: $z-chrome;
+
+  pointer-events: none;
+}
+
+.button {
+  @include flex-center-cross;
+
+  position: absolute;
+  top: $chrome-inset;
+
+  gap: $space-2;
+  padding: $space-3;
+
+  background: rgba($color-walnut-dark, 0.55);
+  backdrop-filter: blur(6px);
+  border-radius: $radius-base;
+
+  font-family: $font-mono;
+  font-size: $fs-label;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  color: $color-text-on-dark;
+
+  transition:
+    background $dur-fast $ease-glint,
+    transform $dur-fast $ease-glint;
+  pointer-events: auto;
+
+  &:hover {
+    background: rgba($color-walnut-dark, 0.75);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-focus;
+    outline-offset: 3px;
+  }
+}
+
+.button--home {
+  left: $chrome-inset;
+}
+
+.button--directory-toggle {
+  right: $chrome-inset;
+
+  justify-content: center;
+}
+
+.icon {
+  @include size(14px);
+
+  color: rgba($color-parchment, 0.75);
+
+  transition:
+    color $dur-fast $ease-glint,
+    transform $dur-fast $ease-glint;
+
+  .button:hover & {
+    color: $color-brass-bright;
+
+    transform: scale(1.06);
+  }
+
+  .button:active & {
+    color: $color-brass;
+
+    transition-duration: 80ms;
+    transform: scale(0.94);
+  }
+}
+
+.text-stack {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  grid-template-areas: "stack";
+}
+
+.ghost-text,
+.active-text {
+  grid-area: stack;
+
+  white-space: nowrap;
+}
+
+.ghost-text {
+  visibility: hidden;
+
+  pointer-events: none;
+  user-select: none;
+}
+
+.active-text {
+  text-align: center;
+}
