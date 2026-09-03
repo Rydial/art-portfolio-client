@@ -3,12 +3,17 @@
   inset: $inset;
 }
 
-// @mixin flex-center-both($direction: row) {
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: $direction;
-// }
+@mixin absolute-inset($inset: 0) {
+  position: absolute;
+  inset: $inset;
+}
+
+@mixin flex-center-both($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+  align-items: center;
+}
 
 @mixin flex-center-cross($direction: row) {
   display: flex;
@@ -16,13 +21,18 @@
   align-items: center;
 }
 
-// @mixin flex-center-main($direction: row) {
-//   display: flex;
-//   justify-content: center;
-//   flex-direction: $direction;
-// }
+@mixin grid-center-both {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
 
 @mixin size($width, $height: $width) {
   width: $width;
   height: $height;
+}
+
+@mixin no-interaction {
+  pointer-events: none;
+  user-select: none;
 }

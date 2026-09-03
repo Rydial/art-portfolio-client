@@ -1,6 +1,6 @@
 export function HomeIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
+    <svg viewBox={"0 0 512 512"} fill={"currentColor"} {...props}>
       <path
         d="
           M 508.468 250.76

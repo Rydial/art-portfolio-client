@@ -41,7 +41,7 @@ export function NavChrome({
       {/* Home Button */}
       {showHome && (
         <button
-          type="button"
+          type={"button"}
           className={clsx(styles.button, styles["button--home"])}
           onClick={goHome}
         >
@@ -53,7 +53,7 @@ export function NavChrome({
       {/* Directory Toggle Button */}
       {showDirectoryToggle && (
         <button
-          type="button"
+          type={"button"}
           className={clsx(styles.button, styles["button--directory-toggle"])}
           onClick={toggleDirectory}
         >

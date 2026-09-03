@@ -24,7 +24,12 @@ export default defineConfig([
     },
     rules: {
       "simple-import-sort/imports": "error",
-      "simple-import-sort/exports": "error"
+      "simple-import-sort/exports": "error",
+      "padding-line-between-statements": [
+        "error",
+        {blankLine: "always", prev: "import", next: "*"},
+        {blankLine: "any", prev: "import", next: "import"}
+      ]
     }
   }
 ]);

@@ -1,0 +1,61 @@
+.wrapper {
+  position: relative;
+  z-index: $z-frame;
+
+  width: min(64vw, 460px);
+  aspect-ratio: 4 / 5;
+}
+
+.frame {
+  // @include focus-ring;
+  @include size(100%);
+
+  padding: $space-2;
+
+  background: linear-gradient(
+    155deg,
+    #4a3624,
+    $color-walnut 60%,
+    $color-walnut-dark
+  );
+  border-radius: $radius-frame;
+  box-shadow:
+    0 2px 3px rgba($color-walnut-dark, 0.4),
+    0 22px 40px -18px rgba($color-walnut-dark, 0.55);
+}
+
+.matting {
+  @include size(100%);
+
+  padding: $space-3;
+
+  background: $color-parchment;
+}
+
+.image-stack {
+  @include size(100%);
+
+  position: relative;
+}
+
+.image {
+  @include absolute-inset;
+  @include size(100%);
+
+  object-fit: cover;
+}
+
+.glint {
+  @include absolute-inset;
+
+  background: linear-gradient(
+    115deg,
+    transparent 40%,
+    rgb(255 255 255 / 35%) 50%,
+    transparent 60%
+  );
+
+  pointer-events: none;
+
+  mix-blend-mode: soft-light;
+}
