@@ -12,9 +12,7 @@ interface FramedArtworkProps {
 
 export function FramedArtwork({artworks}: FramedArtworkProps) {
   const navigate = useNavigate();
-  const {index} = useSlideshow({
-    length: artworks.length
-  });
+  const {index, pause, resume} = useSlideshow({length: artworks.length});
   const artwork = artworks[index];
 
   // ---- Callbacks ------------------------------------------------------------
@@ -24,7 +22,14 @@ export function FramedArtwork({artworks}: FramedArtworkProps) {
 
   // ---- Body -----------------------------------------------------------------
   return (
-    <div className={styles.wrapper}>
+    <div
+      className={styles.wrapper}
+      onMouseEnter={pause}
+      onMouseLeave={resume}
+      onFocus={pause}
+      onBlur={resume}
+    >
+      {/* Frame */}
       <motion.button
         type={"button"}
         className={styles.frame}
