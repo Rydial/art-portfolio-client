@@ -13,7 +13,7 @@ export function App() {
     <LayoutGroup>
       <NavChrome showHome={!isHome} showDirectoryToggle={isGallery} />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path={"/"} element={<HomePage />} />
       </Routes>
     </LayoutGroup>
   );

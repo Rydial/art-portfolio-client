@@ -74,9 +74,8 @@
 }
 
 .text-stack {
-  display: grid;
-  justify-content: center;
-  align-items: center;
+  @include grid-center-both;
+
   grid-template-areas: "stack";
 }
 
@@ -88,10 +87,9 @@
 }
 
 .ghost-text {
-  visibility: hidden;
+  @include no-interaction;
 
-  pointer-events: none;
-  user-select: none;
+  visibility: hidden;
 }
 
 .active-text {

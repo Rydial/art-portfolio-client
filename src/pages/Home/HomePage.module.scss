@@ -1,0 +1,10 @@
+.scene {
+  @include flex-center-both(column);
+  @include size(100%);
+
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 0%,
+    $color-bg-shadow,
+    $color-bg 70%
+  );
+}

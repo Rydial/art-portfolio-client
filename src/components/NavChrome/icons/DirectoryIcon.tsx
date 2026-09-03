@@ -1,6 +1,6 @@
 export function DirectoryIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
+    <svg viewBox={"0 0 512 512"} fill={"currentColor"} {...props}>
       <path
         d="
           M 69.818184 0 H 162.909096 A 69.818184 69.818184 0 0 1 232.72728 

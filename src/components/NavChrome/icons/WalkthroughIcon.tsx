@@ -1,6 +1,6 @@
 export function WalkthroughIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 512 512" fill="currentColor" {...props}>
+    <svg viewBox={"0 0 512 512"} fill={"currentColor"} {...props}>
       <path
         d="
           M 493.688 511.972 L 18.312 511.972 C 4.233 511.972 -4.561 496.742 
