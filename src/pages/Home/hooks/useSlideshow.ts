@@ -10,19 +10,34 @@ export function useSlideshow({length, intervalMs = 6000}: UseSlideshowOptions) {
   const [paused, setPaused] = useState(false);
 
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const startedAtRef = useRef<number>(0);
+  const remainingRef = useRef<number>(intervalMs);
+  const pausedRef = useRef(false);
 
   // ---- Callbacks ------------------------------------------------------------
   const next = useCallback(() => {
+    remainingRef.current = intervalMs;
     setIndex((i) => (i + 1) % length);
-  }, [length]);
+  }, [length, intervalMs]);
 
   const prev = useCallback(() => {
+    remainingRef.current = intervalMs;
     setIndex((i) => (i - 1 + length) % length);
-  }, [length]);
+  }, [length, intervalMs]);
 
-  const pause = useCallback(() => setPaused(true), []);
+  const pause = useCallback(() => {
+    if (pausedRef.current) return;
 
-  const resume = useCallback(() => setPaused(false), []);
+    const elapsed = Date.now() - startedAtRef.current;
+    remainingRef.current = Math.max(remainingRef.current - elapsed, 0);
+    pausedRef.current = true;
+    setPaused(true);
+  }, []);
+
+  const resume = useCallback(() => {
+    pausedRef.current = false;
+    setPaused(false);
+  }, []);
 
   // ---- Effects --------------------------------------------------------------
 
@@ -30,11 +45,13 @@ export function useSlideshow({length, intervalMs = 6000}: UseSlideshowOptions) {
   useEffect(() => {
     if (paused || length <= 1) return;
 
-    timerRef.current = setInterval(next, intervalMs);
+    startedAtRef.current = Date.now();
+    timerRef.current = setTimeout(next, remainingRef.current);
+
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [paused, length, intervalMs, next]);
+  }, [paused, length, next, index]);
 
   // ---------------------------------------------------------------------------
 
