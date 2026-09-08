@@ -2,6 +2,7 @@
   "extends": ["stylelint-config-standard-scss"],
   "plugins": ["stylelint-order"],
   "rules": {
+    "scss/operator-no-newline-after": null,
     "selector-class-pattern": [
       "^[a-z][a-z0-9]*(-[a-z0-9]+)*(--[a-z0-9]+(-[a-z0-9]+)*)?$",
       {

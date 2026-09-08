@@ -1,0 +1,21 @@
+/* stylelint-disable scss/dollar-variable-empty-line-before */
+
+/********************************** Objects ***********************************/
+
+$frame-width: 460px;
+
+$credenza-width: 1250px;
+$credenza-content-width: 272px; // Update when credenza contents change
+
+/*********************************** Layout ***********************************/
+
+$staging-gap: 8rem;
+
+$scene-horizontal-padding: 140px;
+$scene-padding-top: 20rem;
+
+$scene-min-width: max(
+  $scene-horizontal-padding * 2 + $frame-width,
+  $credenza-content-width
+);
+$scene-min-height: 960px; // No safeguards for height - manual calculation
