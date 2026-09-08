@@ -1,0 +1,12 @@
+@use "../styles/variables" as *;
+
+.wrap {
+  position: relative;
+
+  width: $credenza-width;
+}
+
+.svg {
+  width: 100%;
+  height: auto;
+}

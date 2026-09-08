@@ -3,17 +3,20 @@ import {useNavigate} from "react-router-dom";
 
 import type {Artwork} from "@/types/artwork";
 
-import {useSlideshow} from "../hooks/useSlideshow";
 import styles from "./FramedArtwork.module.scss";
 
 interface FramedArtworkProps {
-  artworks: Artwork[];
+  artwork: Artwork;
+  onPauseHover: () => void;
+  onResumeHover: () => void;
 }
 
-export function FramedArtwork({artworks}: FramedArtworkProps) {
+export function FramedArtwork({
+  artwork,
+  onPauseHover,
+  onResumeHover
+}: FramedArtworkProps) {
   const navigate = useNavigate();
-  const {index, pause, resume} = useSlideshow({length: artworks.length});
-  const artwork = artworks[index];
 
   // ---- Callbacks ------------------------------------------------------------
   const enterGallery = () => {
@@ -24,10 +27,10 @@ export function FramedArtwork({artworks}: FramedArtworkProps) {
   return (
     <div
       className={styles.wrapper}
-      onMouseEnter={pause}
-      onMouseLeave={resume}
-      onFocus={pause}
-      onBlur={resume}
+      onMouseEnter={onPauseHover}
+      onMouseLeave={onResumeHover}
+      onFocus={onPauseHover}
+      onBlur={onResumeHover}
     >
       {/* Frame */}
       <motion.button

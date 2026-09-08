@@ -1,10 +1,51 @@
-.scene {
-  @include flex-center-both(column);
+@use "styles/variables" as *;
+
+.viewport {
   @include size(100%);
+
+  position: relative;
+
+  overflow: hidden;
 
   background: radial-gradient(
     ellipse 80% 60% at 50% 0%,
     $color-bg-shadow,
     $color-bg 70%
+  );
+}
+
+.stage {
+  @include flex-center-cross(column);
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  gap: $staging-gap;
+  padding-top: $scene-padding-top;
+
+  transform: translate(-50%, -50%)
+    scale(
+      min(
+        1,
+        calc(100vw / #{$scene-min-width}),
+        calc(100vh / #{$scene-min-height})
+      )
+    );
+}
+
+.floor {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+
+  height: 22%;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba($color-walnut-dark, 0.18)
   );
 }

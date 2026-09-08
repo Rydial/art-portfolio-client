@@ -15,6 +15,12 @@
   align-items: center;
 }
 
+@mixin flex-center-main($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: center;
+}
+
 @mixin flex-center-cross($direction: row) {
   display: flex;
   flex-direction: $direction;
@@ -36,3 +42,18 @@
   pointer-events: none;
   user-select: none;
 }
+
+// @mixin scene-object-shadow($intensity: 1) {
+//   filter: drop-shadow(
+//     $scene-shadow-x $scene-shadow-y $scene-shadow-blur
+//       rgba($color-walnut-dark, 0.4 * $intensity)
+//   );
+// }
+
+// @mixin scene-contact-shadow {
+//   background: radial-gradient(
+//     ellipse,
+//     rgba($color-walnut-dark, 0.45),
+//     transparent 70%
+//   );
+// }

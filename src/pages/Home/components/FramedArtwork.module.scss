@@ -1,7 +1,9 @@
+@use "../styles/variables" as *;
+
 .wrapper {
   z-index: $z-frame;
 
-  width: min(64vw, 460px);
+  width: $frame-width;
   aspect-ratio: 4 / 5;
 }
 
