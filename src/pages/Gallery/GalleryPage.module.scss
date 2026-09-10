@@ -1,0 +1,11 @@
+.viewport {
+  @include size(100%);
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.layer {
+  @include absolute-inset;
+}

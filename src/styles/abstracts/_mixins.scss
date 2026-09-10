@@ -43,17 +43,11 @@
   user-select: none;
 }
 
-// @mixin scene-object-shadow($intensity: 1) {
-//   filter: drop-shadow(
-//     $scene-shadow-x $scene-shadow-y $scene-shadow-blur
-//       rgba($color-walnut-dark, 0.4 * $intensity)
-//   );
-// }
+@mixin no-scrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
-// @mixin scene-contact-shadow {
-//   background: radial-gradient(
-//     ellipse,
-//     rgba($color-walnut-dark, 0.45),
-//     transparent 70%
-//   );
-// }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

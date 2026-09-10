@@ -1,0 +1,30 @@
+.hallway {
+  @include size(100%);
+
+  position: relative;
+}
+
+.track {
+  @include size(100%);
+  @include no-scrollbar;
+
+  overflow-x: auto;
+}
+
+.runner {
+  @include no-interaction;
+
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-ambient;
+
+  height: 16%;
+
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba($color-walnut-dark, 0.16)
+  );
+}

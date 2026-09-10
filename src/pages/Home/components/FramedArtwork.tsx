@@ -2,6 +2,7 @@ import {AnimatePresence, motion} from "motion/react";
 import {useNavigate} from "react-router-dom";
 
 import type {Artwork} from "@/types/artwork";
+import type {GalleryLocationState} from "@/types/gallery";
 
 import styles from "./FramedArtwork.module.scss";
 
@@ -20,7 +21,10 @@ export function FramedArtwork({
 
   // ---- Callbacks ------------------------------------------------------------
   const enterGallery = () => {
-    navigate("/gallery");
+    const params = new URLSearchParams({room: artwork.category});
+    const state: GalleryLocationState = {artworkId: artwork.id};
+
+    navigate(`/gallery?${params}`, {state});
   };
 
   // ---- Body -----------------------------------------------------------------
