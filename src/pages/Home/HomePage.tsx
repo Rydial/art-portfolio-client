@@ -11,6 +11,8 @@ export function HomePage() {
   const {index, pause, resume} = useSlideshow({
     length: slideshowArtworks.length
   });
+
+  // ---- Derived --------------------------------------------------------------
   const artwork = slideshowArtworks[index];
 
   // ---- Body -----------------------------------------------------------------

@@ -2,6 +2,7 @@ import {LayoutGroup} from "motion/react";
 import {Route, Routes, useLocation} from "react-router-dom";
 
 import {NavChrome} from "./components/NavChrome/NavChrome";
+import {GalleryPage} from "./pages/Gallery/GalleryPage";
 import {HomePage} from "./pages/Home/HomePage";
 
 export function App() {
@@ -14,6 +15,7 @@ export function App() {
       <NavChrome showHome={!isHome} showDirectoryToggle={isGallery} />
       <Routes>
         <Route path={"/"} element={<HomePage />} />
+        <Route path={"/gallery"} element={<GalleryPage />} />
       </Routes>
     </LayoutGroup>
   );
