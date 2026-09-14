@@ -1,13 +1,13 @@
 import {AnimatePresence, motion} from "motion/react";
 import {useNavigate} from "react-router-dom";
 
-import type {Artwork} from "@/types/artwork";
+import type {ArtworkData} from "@/types/artwork";
 import type {GalleryLocationState} from "@/types/gallery";
 
 import styles from "./FramedArtwork.module.scss";
 
 interface FramedArtworkProps {
-  artwork: Artwork;
+  artwork: ArtworkData;
   onPauseHover: () => void;
   onResumeHover: () => void;
 }

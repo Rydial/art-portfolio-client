@@ -11,11 +11,11 @@ $credenza-content-width: 272px; // Update when credenza contents change
 
 $staging-gap: 8rem;
 
-$scene-horizontal-padding: 140px;
+$scene-padding-inline: 140px;
 $scene-padding-top: 20rem;
 
-$scene-min-width: max(
-  $scene-horizontal-padding * 2 + $frame-width,
+$scene-threshold-width: max(
+  $scene-padding-inline * 2 + $frame-width,
   $credenza-content-width
 );
-$scene-min-height: 960px; // No safeguards for height - manual calculation
+$scene-threshold-height: 960px; // No safeguards for height - manual calculation

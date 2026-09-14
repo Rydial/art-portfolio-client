@@ -1,19 +1,18 @@
-import type {Artwork, ArtworkCategory} from "@/types/artwork";
-import type {Room} from "@/types/gallery";
+import type {ArtworkCategory, ArtworkData} from "@/types/artwork";
+import type {RoomData} from "@/types/gallery";
 
 import {formatLabel} from "./formatLabel";
 
 /**
- * Groups artworks into rooms by category. Rooms appear in the order their
- * category first occurs in `artworks`.
+ * Groups artworks into rooms by category, preserving the order in which each
+ * category first appears in `artworks`.
  *
- * @param artworks The artworks to group. An empty array returns an empty
- *   array of rooms.
- * @returns An array of rooms.
+ * @param artworks The artworks to group.
+ * @returns One room per distinct category, in first-occurrence order.
  */
-export function buildRooms(artworks: Artwork[]): Room[] {
+export function buildRooms(artworks: ArtworkData[]): RoomData[] {
   const order: ArtworkCategory[] = [];
-  const byCategory = new Map<ArtworkCategory, Artwork[]>();
+  const byCategory = new Map<ArtworkCategory, ArtworkData[]>();
 
   for (const artwork of artworks) {
     if (!byCategory.has(artwork.category)) {
