@@ -1,12 +1,8 @@
-# Art Portfolio — Client Design Reference (v2)
+# Art Portfolio — Client Design Reference (v3)
 
 Solo project, three separate repos: `client` (public), `server` (private),
 `admin` (private). This doc covers the **client** repo's design decisions
 only. Code context will be provided separately.
-
-This supersedes the original design-only reference. A number of decisions
-below were made while building the Home page and are now considered settled;
-everything else from the original doc still stands unless noted.
 
 ## Tech stack (client)
 
@@ -15,8 +11,6 @@ everything else from the original doc still stands unless noted.
 - SASS — CSS Modules per component + a global SASS system for shared
   tokens/mixins
 - Motion (formerly Framer Motion) for animation
-- A path alias is configured so shared modules can be imported cleanly from
-  anywhere in the project
 
 ## Overall concept: "The Collector's Home"
 
@@ -37,10 +31,6 @@ purely decorative and some functional.
   the most recent pieces if the featured pool is thin. Autoplay with
   crossfade, pause on hover/focus, and a brief "moment" (a glint/shadow
   shift) on each transition rather than a flat crossfade.
-- The plaque (title/medium/year) and manual prev/next controls originally
-  planned for the frame have been **removed**. The credenza and its objects
-  are now the layer carrying visual interest and interactivity — the frame
-  itself stays quiet.
 - **Exit transition (Home → Gallery)**: unchanged from the original concept.
   Clicking the frame animates it as one continuous shared-element transition
   toward its actual resting position on the Gallery wall — not to a fixed
@@ -52,27 +42,105 @@ credenza itself** below for the design rules governing this page in detail.
 
 ### Gallery Page — "The Hallway"
 
-Unchanged from the original concept.
-
-- One continuous hallway, pannable/scrollable, with rooms as doorways
-  branching off it.
+- One continuous hallway, pannable/scrollable. Rooms are arranged
+  sequentially along it, one filling the screen at a time as you pan
+  between them — this is **not** a corridor you see down with rooms
+  branching perpendicular off to the side (that's a further-out
+  possibility, not what's being built now). Continuity between rooms
+  instead comes from the hallway's wall and floor material running
+  unbroken behind and beneath the rooms — see **Room structure** below —
+  so moving between rooms doesn't feel like a hard cut between unrelated
+  screens, even though only one room is the focus at a time.
 - Visitors from Home arrive already inside the room of the artwork they
   clicked — not at the start of the hallway.
 - Rooms are **data-driven**, derived from whichever categories actually exist
   in the collection — not hardcoded to the three known today (Landscape,
   Portrait, Still life).
-- Room layout scales with an unknown, growing piece count: sparse rooms get
-  generous gallery-style spacing with a possible single "anchor" piece; dense
-  rooms get a salon-style hang with varied frame sizes across multiple rows.
-- **Two modes**: Walkthrough (the cinematic, spatial pan-through-rooms
-  experience, and the default) and Directory (a flat, fast, filterable
-  list/grid — the practical backbone for search, mobile, and accessibility).
+- A room never attempts to display its entire category at once. Instead,
+  each room shows a small, capped selection of its artworks — enough to
+  feel populated, never so many that pieces have to shrink past the point
+  of reading as real objects. Because every room now displays somewhere
+  within that same small range regardless of its category's true size,
+  every room can share one composition approach instead of branching
+  between a "sparse" and a "dense" treatment.
+- Within that capped selection, a room's artworks are arranged in
+  positions that are randomized but stable — the arrangement never
+  reshuffles on its own (e.g. leaving the page and coming back finds the
+  same layout), only changing if the selection itself changes. Sizing
+  scales with how many pieces are currently on display: fewer pieces
+  means each can be shown larger (a single piece becomes a deliberate,
+  emphasized "anchor" placement), more pieces means each is smaller —
+  but only the artwork's image area changes size this way. The frame's
+  matting around it stays a constant width no matter how many pieces are
+  in the room.
+- **Collections**: since a room only ever shows a handful of pieces, each
+  room needs to decide _which_ handful. A room displays one of a small
+  set of named collections at a time — "Most recent" (the default),
+  "Featured" (only offered in a room if it actually has a featured piece
+  in it), and one special case, "Nearest to your pick" (see below). A
+  collection is never offered as a choice in a room unless there's
+  genuinely at least one artwork behind it — no fallback options. Every
+  room tracks its own active collection independently of every other
+  room.
+- **Nearest to your pick** exists only in the one room containing the
+  artwork a visitor actually clicked on Home, and only that room opens on
+  it by default (every other room — and every room, if there was no
+  click-through at all — opens on "Most recent"). It's built outward from
+  the clicked artwork by date, both earlier and later, so a visitor who
+  followed a piece in from Home can always find their way back to it. If
+  the visitor manually switches that room to a different collection and
+  the original piece isn't part of it, it's fine for it to simply
+  disappear from view — it doesn't need to be pinned in place regardless
+  of collection.
+- The collection picker lives on the room's own plaque/label (see Room
+  structure below), reading as "what's currently on display here" rather
+  than a search form. It's deliberately a single, simple choice — not a
+  system like Directory's independent multi-filter combination, since a
+  room's role is a curated glimpse, not an exhaustive search.
+- **Room structure**: a room is made of layers with different jobs.
+  - The **doorway** — the room's threshold, holding its artwork
+    composition and its plaque/label together — follows the same
+    "always fully visible, never cropped" guarantee Home's frame has,
+    extended to the whole room: the doorway's contents scale together as
+    one unit, shrinking together on small screens down to a legibility
+    floor, and never growing past their natural size on generous ones —
+    the same mechanic as Home's frame-and-credenza composition.
+  - The **wall and floor**, by contrast, belong to the hallway itself,
+    not to any individual room. They run continuously behind and beneath
+    every doorway, connecting one room to the next, and don't scale with
+    any individual room's doorway. Because the visual gap between
+    doorways can vary — especially once doorways are shrunk to different
+    degrees on a small screen — the wall and floor need to be able to
+    extend to whatever length is needed without looking stretched or
+    distorted. The intended approach is a small, repeating (tileable)
+    material rather than a single resizable image, so any length is just
+    "more or fewer repeats" of the same tile.
+  - For now, every room's wall looks identical. Giving each room's wall
+    its own material or tone (e.g., something warmer for the still-life
+    room) is a reasonable future extension once per-room wall styling is
+    wanted, but isn't part of the current plan.
+  - The doorway is currently **open** — there's no literal door frame or
+    aperture yet. The wall-and-floor structure is intentionally the
+    first step toward a real doorway later: extending the walls inward
+    to form an actual framed opening is meant to be a natural
+    continuation of this structure, not a rebuild of it.
+  - Exact dimensions, tile assets, and HTML/element structure for this
+    system are deliberately left conceptual for now, to be settled once
+    implementation resumes.
+- **Two modes**: Walkthrough (the cinematic, room-by-room experience
+  described above, and the default) and Directory (a flat, fast,
+  filterable list/grid — the practical, exhaustive backbone for search,
+  mobile, and accessibility). Directory is the counterpart to
+  Walkthrough's curated/capped approach: Directory always shows every
+  artwork, filterable across every combination of its filters at once,
+  with no cap.
 - Toggling between modes dims/blurs the spatial scene, then the Directory's
   content fades/rises in to fully replace it. Directory's resting state is a
   full, spacious view, not a small floating panel.
-- Filters: category, medium (kept even though currently always "oil
-  painting," for future-proofing), size, year, and possibly palette/tone as a
-  nice-to-have. No price/availability filter — portfolio only, for now.
+- Filters (Directory only): category, medium (kept even though currently
+  always "oil painting," for future-proofing), size, year, and possibly
+  palette/tone as a nice-to-have. No price/availability filter — portfolio
+  only, for now.
 
 ### Artwork Page — "Spotlighted View"
 
@@ -142,11 +210,14 @@ Each artwork includes:
 - `year`
 - `dimensions`
 - `description` (optional/nullable)
-- `featured` (for Home slideshow selection)
-- `date added` (for Home's fallback sort and Directory's default sort)
+- `featured` — used both for Home's slideshow selection and as the basis
+  for a Gallery room's "Featured" collection
+- `date added` — used for Home's fallback sort, Directory's default sort,
+  and Gallery's "Most recent"/"Nearest to your pick" room collections
 - a manual hang-order or similar, for room/wall position — likely
-  auto-generated rather than manually placed per piece, since room layout is
-  algorithmic based on density
+  auto-generated rather than manually placed per piece, since a room's
+  artwork arrangement is randomized/algorithmic within its capped
+  selection, not manually curated per piece
 - its own slug/route, for deep linking
 
 No price/availability field is exposed yet (portfolio only, for now), but the
@@ -190,6 +261,11 @@ A few consequences that follow from that asymmetry:
   above, while the lower portion of the credenza is allowed to run off the
   bottom of the screen.
 
+This same "shrink the whole composition as one unit down to a floor, then
+let the non-essential parts absorb any further shrinkage or excess space"
+principle is reused for the Gallery's rooms — see **Room structure** under
+the Gallery Page section above.
+
 ## Objects on the credenza
 
 Objects are illustrated in the same flat, vector style as the rest of the
@@ -225,12 +301,17 @@ again: it's already been tried once.
 
 ## The credenza itself
 
-Rendered as furniture seen at a slight three-quarter angle — a front face, a
-visible sliver of the top surface catching light from above, and a visible
-sliver of the side face receding into shadow — rather than a flat,
-single-toned rectangle. This is what actually reads as three-dimensional: the
-eye resolves depth from seeing multiple differently-lit surfaces of one
-object, not from shading alone on a flat shape.
+Rendered as furniture seen **straight-on** — a front face viewed dead-on,
+plus a visible top surface catching light from above — rather than a flat,
+single-toned rectangle. The top surface is a symmetric trapezoid that
+recedes evenly from both edges toward the back, rather than sliding
+sideways toward one edge — this is what gives it a "looking down at the
+surface" three-dimensional read without introducing any left/right skew.
+There's deliberately no visible side face: a true front-on view wouldn't
+show one, since a side face is only ever visible from an off-axis camera
+angle. (An earlier version rendered this as a three-quarter/oblique angle
+with a visible receding side face — that's been corrected in favor of the
+straight-on treatment described here.)
 
 - **Cropped to its top portion only** — no legs, no floor beneath it. This is
   a deliberate composition, not a placeholder: it matches how real furniture
@@ -269,13 +350,25 @@ object, not from shading alone on a flat shape.
 3. **Additional objects for the credenza** beyond the clock haven't been
    designed yet. Whatever gets added needs to respect the "always fully
    visible alongside the frame" rule above.
-4. **Gallery and Artwork pages** are still largely conceptual — the room
-   list being data-driven is the only piece of that concept that's been
-   carried into anything concrete so far. The museum plaque, the two entrance
-   treatments, and in-room navigation are still undesigned in detail.
-5. **How much of the credenza is allowed to crop, and how much breathing room
+4. **How much of the credenza is allowed to crop, and how much breathing room
    sits above it**, are current best guesses rather than something validated
    by actually looking at it across a range of real devices — worth
    revisiting once it's been seen.
-6. **Data model / server contract** — still informal, as in the original
+5. **A literal doorway aperture for Gallery rooms** — currently each room is
+   simply open, with wall material at its sides. The wall structure is meant
+   to extend into a real framed opening later; that extension hasn't been
+   designed yet.
+6. **Per-room wall/material styling in Gallery** — every room's wall
+   currently looks identical. Giving individual rooms their own wall tone or
+   material is a reasonable future direction, not yet pursued.
+7. **Exact dimensions, tile assets, and structure for the Gallery's
+   doorway/wall/floor system** — deliberately left conceptual for now, to be
+   settled once implementation resumes.
+8. **The Artwork page** is still largely conceptual, and undesigned in
+   detail beyond what's captured above — the museum plaque, the two entrance
+   treatments, and in-room navigation all still need real design work. Its
+   interaction with Gallery rooms (e.g. clicking through from a room's
+   artwork) also isn't wired up in the implementation yet, since the page
+   doesn't exist.
+9. **Data model / server contract** — still informal, as in the original
    doc.

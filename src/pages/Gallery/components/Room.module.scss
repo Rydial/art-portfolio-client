@@ -1,0 +1,68 @@
+@use "../styles/variables" as *;
+
+.room {
+  @include flex-center-both;
+  @include size(100%);
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.wall {
+  @include absolute-inset;
+
+  z-index: $z-scene;
+
+  background: repeating-linear-gradient(
+    180deg,
+    $color-wall 0,
+    $color-wall 48px,
+    $color-wall-shadow 48px,
+    $color-wall-shadow 96px
+  );
+}
+
+.floor {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: $z-ambient;
+
+  height: 20%;
+
+  background: repeating-linear-gradient(
+    90deg,
+    $color-walnut-dark 0,
+    $color-walnut-dark 32px,
+    $color-walnut-dark 32px,
+    $color-walnut-dark 64px
+  );
+}
+
+.scaler {
+  $scene-threshold-width: calc(
+    var(--room-content-width) + #{$room-padding-inline * 2}
+  );
+  $scene-threshold-height: calc(
+    var(--room-content-height) + #{$room-padding-top} + #{$room-padding-bottom}
+  );
+
+  z-index: $z-frame;
+
+  transform: scale(
+    min(
+      1,
+      calc(100vw / #{$scene-threshold-width}),
+      calc(100vh / #{$scene-threshold-height})
+    )
+  );
+}
+
+.content {
+  width: var(--room-content-width);
+  height: var(--room-content-height);
+
+  background-color: blue;
+}

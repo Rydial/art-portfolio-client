@@ -7,7 +7,7 @@ export type ArtworkCategory =
 
 export type ArtworkMedium = "oil-paint" | (string & {});
 
-export interface Artwork {
+export interface ArtworkData {
   id: string;
   slug: string; // Used for the artwork's own route: /artwork/:slug
   title: string;

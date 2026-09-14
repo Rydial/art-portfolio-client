@@ -1,6 +1,7 @@
 @use "styles/variables" as *;
 
 .viewport {
+  @include flex-center-both;
   @include size(100%);
 
   position: relative;
@@ -14,24 +15,21 @@
   );
 }
 
-.stage {
-  @include flex-center-cross(column);
+.scaler {
+  transform: scale(
+    min(
+      1,
+      calc(100vw / #{$scene-threshold-width}),
+      calc(100vh / #{$scene-threshold-height})
+    )
+  );
+}
 
-  position: absolute;
-  top: 50%;
-  left: 50%;
+.content {
+  @include flex-center-cross(column);
 
   gap: $staging-gap;
   padding-top: $scene-padding-top;
-
-  transform: translate(-50%, -50%)
-    scale(
-      min(
-        1,
-        calc(100vw / #{$scene-min-width}),
-        calc(100vh / #{$scene-min-height})
-      )
-    );
 }
 
 .floor {

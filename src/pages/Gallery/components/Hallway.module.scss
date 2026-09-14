@@ -1,30 +1,20 @@
 .hallway {
   @include size(100%);
-
-  position: relative;
 }
 
 .track {
   @include size(100%);
   @include no-scrollbar;
 
+  display: flex;
   overflow-x: auto;
+
+  scroll-snap-type: x proximity;
 }
 
-.runner {
-  @include no-interaction;
+.bay {
+  flex: 0 0 100%;
+  min-width: 0;
 
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: $z-ambient;
-
-  height: 16%;
-
-  background: linear-gradient(
-    180deg,
-    transparent,
-    rgba($color-walnut-dark, 0.16)
-  );
+  scroll-snap-align: start;
 }

@@ -1,6 +1,6 @@
-import type {Artwork} from "@/types/artwork";
+import type {ArtworkData} from "@/types/artwork";
 
-export const artworks: Artwork[] = [
+export const artworks: ArtworkData[] = [
   {
     id: "a1",
     slug: "orchard-in-late-light",

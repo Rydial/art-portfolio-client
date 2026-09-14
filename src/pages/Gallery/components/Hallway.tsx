@@ -1,20 +1,32 @@
-import {useLayoutEffect, useRef} from "react";
+import {useEffect, useLayoutEffect, useRef} from "react";
 
-import type {Room} from "@/types/gallery";
+import type {ArtworkCategory} from "@/types/artwork";
+import type {RoomData} from "@/types/gallery";
 
 import styles from "./Hallway.module.scss";
+import {Room} from "./Room";
 
 interface HallwayProps {
-  rooms: Room[];
+  rooms: RoomData[];
   arrivalArtworkId?: string;
 }
 
 export function Hallway({rooms, arrivalArtworkId}: HallwayProps) {
-  const roomRefs = useRef<Map<string, HTMLDivElement>>(new Map());
+  const trackRef = useRef<HTMLDivElement | null>(null);
+  const roomRefs = useRef<Map<ArtworkCategory, HTMLDivElement>>(new Map());
+  const scrollFractionRef = useRef<number>(0);
+
+  // ---- Callbacks ------------------------------------------------------------
+
+  const handleTrackScroll = (event: React.UIEvent<HTMLDivElement>) => {
+    const track = event.currentTarget;
+    scrollFractionRef.current =
+      track.scrollWidth > 0 ? track.scrollLeft / track.scrollWidth : 0;
+  };
 
   // ---- Effects --------------------------------------------------------------
 
-  // Arrive already inside the room of the selected artwork
+  // Arrive already inside the room of the selected artwork - only runs once
   useLayoutEffect(() => {
     if (!arrivalArtworkId) return;
 
@@ -33,11 +45,39 @@ export function Hallway({rooms, arrivalArtworkId}: HallwayProps) {
     });
   }, [arrivalArtworkId, rooms]);
 
+  // Snap to nearest room during resize
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const resizeObserver = new ResizeObserver(() => {
+      const roomIndex = Math.round(scrollFractionRef.current * rooms.length);
+      const targetScrollLeft = (roomIndex / rooms.length) * track.scrollWidth;
+      track.scrollLeft = targetScrollLeft;
+    });
+
+    resizeObserver.observe(track);
+
+    return () => resizeObserver.disconnect();
+  }, [rooms.length]);
+
   // ---- Body -----------------------------------------------------------------
   return (
     <div className={styles.hallway}>
-      <div className={styles.track}></div>
-      <div className={styles.runner} />
+      <div className={styles.track} ref={trackRef} onScroll={handleTrackScroll}>
+        {rooms.map((room) => (
+          <div
+            key={room.category}
+            ref={(el) => {
+              if (el) roomRefs.current.set(room.category, el);
+              else roomRefs.current.delete(room.category);
+            }}
+            className={styles.bay}
+          >
+            <Room />
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
