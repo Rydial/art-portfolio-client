@@ -9,10 +9,12 @@ export const artworks: ArtworkData[] = [
     medium: "oil-paint",
     dimensions: "24 x 30 in",
     description: `
-      A late-afternoon study of the orchard behind the old stone wall, painted
+      A late-afternoon study of the orchard behind the old stone wall, painted 
       over three sittings.
     `,
     imageUrl: "https://picsum.photos/seed/orchard-in-late-light/800/600",
+    imageWidth: 800,
+    imageHeight: 600,
     featured: true,
     dateAdded: "2024-09-12"
   },
@@ -24,6 +26,8 @@ export const artworks: ArtworkData[] = [
     medium: "oil-paint",
     dimensions: "18 x 24 in",
     imageUrl: "https://picsum.photos/seed/quiet-harbor/800/600",
+    imageWidth: 800,
+    imageHeight: 600,
     featured: false,
     dateAdded: "2023-11-02"
   },
@@ -36,6 +40,8 @@ export const artworks: ArtworkData[] = [
     dimensions: "16 x 20 in",
     description: "My grandmother, mid-page, unaware she was being watched.",
     imageUrl: "https://picsum.photos/seed/study-of-a-reader/800/600",
+    imageWidth: 800,
+    imageHeight: 600,
     featured: true,
     dateAdded: "2024-11-30"
   },
@@ -47,6 +53,8 @@ export const artworks: ArtworkData[] = [
     medium: "oil-paint",
     dimensions: "20 x 24 in",
     imageUrl: "https://picsum.photos/seed/self-portrait-in-brass-light/800/600",
+    imageWidth: 800,
+    imageHeight: 600,
     featured: false,
     dateAdded: "2022-04-18"
   },
@@ -58,6 +66,8 @@ export const artworks: ArtworkData[] = [
     medium: "oil-paint",
     dimensions: "12 x 16 in",
     imageUrl: "https://picsum.photos/seed/pears-and-pewter/800/600",
+    imageWidth: 800,
+    imageHeight: 600,
     featured: true,
     dateAdded: "2025-02-06"
   },
@@ -70,9 +80,11 @@ export const artworks: ArtworkData[] = [
     dimensions: "20 x 20 in",
     description: `
       Ink, a magnifying glass, a moth pinned under glass — the objects on the 
-      desk where this whole project started.\
+      desk where this whole project started.
     `,
     imageUrl: "https://picsum.photos/seed/the-collectors-desk/800/600",
+    imageWidth: 800,
+    imageHeight: 600,
     featured: false,
     dateAdded: "2023-07-21"
   }

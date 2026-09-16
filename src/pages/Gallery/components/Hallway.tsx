@@ -1,7 +1,8 @@
-import {useEffect, useLayoutEffect, useRef} from "react";
+import {useEffect, useLayoutEffect, useRef, useState} from "react";
 
+import {getDefaultCollectionId} from "@/lib/roomCollections";
 import type {ArtworkCategory} from "@/types/artwork";
-import type {RoomData} from "@/types/gallery";
+import type {RoomCollectionId, RoomData} from "@/types/gallery";
 
 import styles from "./Hallway.module.scss";
 import {Room} from "./Room";
@@ -12,6 +13,17 @@ interface HallwayProps {
 }
 
 export function Hallway({rooms, arrivalArtworkId}: HallwayProps) {
+  const [collectionByRoom, setCollectionByRoom] = useState<
+    Record<string, RoomCollectionId>
+  >(() =>
+    Object.fromEntries(
+      rooms.map((room) => [
+        room.category,
+        getDefaultCollectionId(room, arrivalArtworkId)
+      ])
+    )
+  );
+
   const trackRef = useRef<HTMLDivElement | null>(null);
   const roomRefs = useRef<Map<ArtworkCategory, HTMLDivElement>>(new Map());
   const scrollFractionRef = useRef<number>(0);
@@ -74,7 +86,17 @@ export function Hallway({rooms, arrivalArtworkId}: HallwayProps) {
             }}
             className={styles.bay}
           >
-            <Room />
+            <Room
+              room={room}
+              arrivalArtworkId={arrivalArtworkId}
+              collectionId={collectionByRoom[room.category]}
+              onChangeCollection={(collectionId) =>
+                setCollectionByRoom((prev) => ({
+                  ...prev,
+                  [room.category]: collectionId
+                }))
+              }
+            />
           </div>
         ))}
       </div>

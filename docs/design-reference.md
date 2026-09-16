@@ -1,4 +1,4 @@
-# Art Portfolio — Client Design Reference (v3)
+# Art Portfolio — Client Design Reference (v4)
 
 Solo project, three separate repos: `client` (public), `server` (private),
 `admin` (private). This doc covers the **client** repo's design decisions
@@ -50,7 +50,10 @@ credenza itself** below for the design rules governing this page in detail.
   instead comes from the hallway's wall and floor material running
   unbroken behind and beneath the rooms — see **Room structure** below —
   so moving between rooms doesn't feel like a hard cut between unrelated
-  screens, even though only one room is the focus at a time.
+  screens, even though only one room is the focus at a time. Resizing the
+  window while inside a room shouldn't change which room is currently in
+  view — the room you're looking at stays the one you're looking at, even
+  as its own size adjusts to the new window dimensions.
 - Visitors from Home arrive already inside the room of the artwork they
   clicked — not at the start of the hallway.
 - Rooms are **data-driven**, derived from whichever categories actually exist
@@ -66,13 +69,20 @@ credenza itself** below for the design rules governing this page in detail.
 - Within that capped selection, a room's artworks are arranged in
   positions that are randomized but stable — the arrangement never
   reshuffles on its own (e.g. leaving the page and coming back finds the
-  same layout), only changing if the selection itself changes. Sizing
-  scales with how many pieces are currently on display: fewer pieces
-  means each can be shown larger (a single piece becomes a deliberate,
-  emphasized "anchor" placement), more pieces means each is smaller —
-  but only the artwork's image area changes size this way. The frame's
-  matting around it stays a constant width no matter how many pieces are
-  in the room.
+  same layout), only changing if the selection itself changes. Every
+  artwork keeps its own true aspect ratio — nothing is stretched or
+  cropped to force a uniform shape. The whole group is packed together and
+  scaled as one unit to fill the room without any pieces overlapping: a
+  room with a single piece can show it large, as a deliberate, emphasized
+  "anchor" placement, while a fuller room scales everything down together
+  so nothing spills past its neighbors. Because the group scales together
+  rather than each piece scaling independently, a piece that's naturally
+  larger than its neighbors stays proportionally larger, instead of every
+  piece being forced to the same size. Only the artwork's image area
+  changes size this way — the frame and matting around each piece stay a
+  constant physical thickness regardless of how much the image itself has
+  been scaled up or down, so a room's framing always reads as the same
+  weight of construction whether it's showing one piece or several.
 - **Collections**: since a room only ever shows a handful of pieces, each
   room needs to decide _which_ handful. A room displays one of a small
   set of named collections at a time — "Most recent" (the default),
@@ -196,6 +206,18 @@ scenes, unaffected by whatever transition is playing underneath:
   should read as slightly dim/in-shadow; hovering should brighten it, like
   catching light; pressing it should dip duller and smaller, like being
   pushed back into shadow rather than simply "un-hovering."
+
+## Framed artwork construction
+
+Every framed artwork on the site — Home's single piece above the credenza,
+and every artwork hung in a Gallery room — is built from the same three
+layers, in the same order: an outer **frame** (walnut wood), an inner
+**matting** board (parchment) sitting between the frame and the image, and
+the image itself. This is a site-wide construction, not page-specific
+styling — a piece should read as the same physical object regardless of
+which page it's shown on, which matters especially for the Home → Gallery
+exit transition, where the clicked piece is meant to visually continue as
+the same object rather than switching construction mid-flight.
 
 ## Data model implications
 
@@ -372,3 +394,11 @@ straight-on treatment described here.)
    doesn't exist.
 9. **Data model / server contract** — still informal, as in the original
    doc.
+10. **Desktop input for panning the hallway** — touch swiping and trackpad
+    two-finger scrolling both work naturally. A plain mouse with only a
+    vertical scroll wheel currently has no way to move between rooms at
+    all. Whether the fix is treating mouse-wheel input as pan input,
+    adding a persistent set of prev/next room controls (distinct from the
+    Artwork page's in-room prev/next arrows, which move between pieces
+    _within_ a room rather than between rooms), enabling keyboard
+    arrow-key panning, or some combination of these, hasn't been decided.

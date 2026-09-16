@@ -16,6 +16,8 @@ export interface ArtworkData {
   dimensions: string;
   description?: string; // Optional
   imageUrl: string;
+  imageWidth: number;
+  imageHeight: number;
   featured: boolean; // Whether or not it's part of the Home slideshow
   dateAdded: string; // ISO format
 }

@@ -1,0 +1,33 @@
+.frame {
+  position: absolute;
+
+  padding: var(--frame-thickness);
+
+  background: linear-gradient(
+    155deg,
+    #4a3624,
+    $color-walnut 60%,
+    $color-walnut-dark
+  );
+  border-radius: $radius-frame;
+  box-shadow:
+    0 2px 3px rgba($color-walnut-dark, 0.4),
+    0 16px 30px -16px rgba($color-walnut-dark, 0.5);
+
+  transition: box-shadow $dur-medium $ease-room;
+}
+
+.frame--highlighted {
+  box-shadow:
+    0 2px 3px rgba($color-walnut-dark, 0.4),
+    0 0 0 3px rgba($color-brass, 0.5),
+    0 16px 30px -16px rgba($color-walnut-dark, 0.5);
+}
+
+.matting {
+  @include size(100%);
+
+  padding: var(--matting-thickness);
+
+  background: $color-parchment;
+}

@@ -1,0 +1,2 @@
+export const ARTWORK_FRAME_THICKNESS = 8;
+export const ARTWORK_MATTING_THICKNESS = 12;

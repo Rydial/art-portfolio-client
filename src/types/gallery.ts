@@ -11,3 +11,5 @@ export interface RoomData {
   label: string; // Display label, e.g. "Still life" for "still-life"
   artworks: ArtworkData[]; // Every artwork in this category
 }
+
+export type RoomCollectionId = "featured" | "recent" | "nearest";
